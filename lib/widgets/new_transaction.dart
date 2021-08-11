@@ -17,7 +17,7 @@ class _NewTransactionState extends State<NewTransaction> {
   DateTime? _selectedDate;
 
   void _submitData() {
-    if(_amountController.text == null){
+    if (_amountController.text == null) {
       return;
     }
     final enterTitle = _titleController.text;
@@ -48,64 +48,72 @@ class _NewTransactionState extends State<NewTransaction> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 5,
-      child: Container(
-        padding: EdgeInsets.all(10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            TextField(
-              decoration: InputDecoration(labelText: 'Title'),
-              controller: _titleController,
-              onSubmitted: (_) => _submitData(),
-            ),
-            TextField(
-              decoration: InputDecoration(labelText: 'Amount'),
-              controller: _amountController,
-              keyboardType: TextInputType.number,
-              onSubmitted: (_) => _submitData(),
-            ),
-            Container(
-              height: 70,
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Text(_selectedDate == null
-                        ? 'No date chosen!'
-                        : 'Picked Date: ${DateFormat.yMd().format(_selectedDate!)}'),
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  FlatButton(
-                    child: Text(
-                      'Choose Date',
-                      style: TextStyle(fontWeight: FontWeight.bold),
+    return SingleChildScrollView(
+      child: Card(
+        elevation: 5,
+        child: Container(
+          padding: EdgeInsets.only(
+              left: 10,
+              right: 10,
+              top: 10,
+              bottom: MediaQuery.of(context).viewInsets.bottom + 10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              TextField(
+                decoration: InputDecoration(labelText: 'Title'),
+                controller: _titleController,
+                onSubmitted: (_) => _submitData(),
+              ),
+              TextField(
+                decoration: InputDecoration(labelText: 'Amount'),
+                controller: _amountController,
+                keyboardType: TextInputType.number,
+                onSubmitted: (_) => _submitData(),
+              ),
+              Container(
+                height: 70,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Text(_selectedDate == null
+                          ? 'No date chosen!'
+                          : 'Picked Date: ${DateFormat.yMd().format(_selectedDate!)}'),
                     ),
-                    textColor: Theme.of(context).primaryColor,
-                    color: Colors.white,
-                    onPressed: _presentDatePicker,
-                  ),
-                ],
+                    SizedBox(
+                      width: 10,
+                    ),
+                    FlatButton(
+                      child: Text(
+                        'Choose Date',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      textColor: Theme.of(context).primaryColor,
+                      color: Colors.white,
+                      onPressed: _presentDatePicker,
+                    ),
+                  ],
+                ),
               ),
-            ),
-            FlatButton(
-              child: Text(
-                'Add Transaction',
-                style:
-                    TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-              ),
-              onPressed: () {
-                _submitData();
-                FocusScope.of(context).requestFocus(FocusNode());
-              },
-              shape: RoundedRectangleBorder(
-                  side: BorderSide(
-                      color: Colors.purple, width: 2, style: BorderStyle.solid),
-                  borderRadius: BorderRadius.circular(8)),
-            )
-          ],
+              FlatButton(
+                child: Text(
+                  'Add Transaction',
+                  style: TextStyle(
+                      color: Colors.black, fontWeight: FontWeight.bold),
+                ),
+                onPressed: () {
+                  _submitData();
+                  FocusScope.of(context).requestFocus(FocusNode());
+                },
+                shape: RoundedRectangleBorder(
+                    side: BorderSide(
+                        color: Colors.purple,
+                        width: 2,
+                        style: BorderStyle.solid),
+                    borderRadius: BorderRadius.circular(8)),
+              )
+            ],
+          ),
         ),
       ),
     );
